@@ -1,14 +1,22 @@
 const express = require("express");
-const dotenv= require("dotenv");
+const dotenv = require("dotenv");
+const authRoute = require("./routes/authRoute");
+const connectDB = require("./config/db");
 
-const app= express();
+const app = express();
 dotenv.config();
+connectDB();
 app.use(express.json());
+const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 
-app.get("/", (req,res)=>{
-    res.send("API is RUNNING....")
-})
+app.get("/", (req, res) => {
+  res.send("API is RUNNING....");
+});
+app.use("/auth", authRoute);
 
-const PORT=process.env.PORT || 5000;
+app.use(notFound);
+app.use(errorHandler);
 
-app.listen(PORT,console.log(`App Started at Port ${PORT}`));
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, console.log(`App Started at Port ${PORT}`));
