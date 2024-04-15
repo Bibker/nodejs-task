@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const authRoute = require("./routes/authRoute");
 const postRoute = require("./routes/postRoute");
+const adminRoute = require("./routes/adminRoute");
 const connectDB = require("./config/db");
 
 const app = express();
@@ -15,6 +16,7 @@ app.get("/", (req, res) => {
 });
 app.use("/auth", authRoute);
 app.use("/post", postRoute);
+app.use("/admin", adminRoute);
 
 app.use(notFound);
 app.use(errorHandler);

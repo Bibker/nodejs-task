@@ -71,4 +71,19 @@ const updatePost = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = { createPost, viewPost, updatePost };
+const deletePost = asyncHandler(async (req, res) => {
+  const postId = req.params.id;
+  const deletedPost = await Post.deleteOne({ _id: postId });
+  if (!deletedPost.count) {
+    res.status(400);
+    throw new Error("Post not found");
+  }
+
+  return res.status(200).json({
+    success: true,
+    message: " Post Deleted Successfully",
+    data: deletedPost,
+  });
+});
+
+module.exports = { createPost, viewPost, updatePost, deletePost };

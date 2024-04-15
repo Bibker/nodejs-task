@@ -31,4 +31,14 @@ const tagsTimeRestriction = asyncHandler(async (req, res, next) => {
   }
 });
 
-module.exports = { tagsTimeRestriction };
+const restrictTo = (role) => {
+  return (req, res, next) => {
+    if (req.user.role === role) {
+      return next();
+    } else {
+      throw new Error("You are not authorized to perform this action.");
+    }
+  };
+};
+
+module.exports = { tagsTimeRestriction, restrictTo };
