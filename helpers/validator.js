@@ -14,3 +14,9 @@ exports.loginValidator = [
   }),
   check("password", "Password is required").not().isEmpty(),
 ];
+
+exports.postValidator = [
+  check("title", "Please enter post title").not(),
+  check("content", "Please providee post content").not().isEmpty(),
+  check("tags", "Please providee post tags").not().isEmpty(),
+];

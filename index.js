@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const authRoute = require("./routes/authRoute");
+const postRoute = require("./routes/postRoute");
 const connectDB = require("./config/db");
 
 const app = express();
@@ -13,6 +14,7 @@ app.get("/", (req, res) => {
   res.send("API is RUNNING....");
 });
 app.use("/auth", authRoute);
+app.use("/post", postRoute);
 
 app.use(notFound);
 app.use(errorHandler);
