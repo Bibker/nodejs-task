@@ -50,6 +50,18 @@ const viewPost = asyncHandler(async (req, res) => {
 const updatePost = asyncHandler(async (req, res) => {
   const { title, content, tags } = req.body;
   const postId = req.params.id;
+
+  const postExist = await Post.findOne({ _id: postId });
+  if (!postExist) {
+    res.status(400);
+    throw new Error("Post Not Found");
+  }
+
+  if (postExist.createdBy != req.user.id) {
+    res.status(400);
+    throw new Error("You do not have permission to edit this post.");
+  }
+
   const updatedPost = await Post.findByIdAndUpdate(
     {
       _id: postId,
@@ -73,11 +85,19 @@ const updatePost = asyncHandler(async (req, res) => {
 
 const deletePost = asyncHandler(async (req, res) => {
   const postId = req.params.id;
-  const deletedPost = await Post.deleteOne({ _id: postId });
-  if (!deletedPost.count) {
+
+  const postExist = await Post.findOne({ _id: postId });
+  if (!postExist) {
     res.status(400);
-    throw new Error("Post not found");
+    throw new Error("Post Not Found");
   }
+
+  if (postExist.createdBy !== req.user.id) {
+    res.status(400);
+    throw new Error("You do not have permission to edit this post.");
+  }
+
+  const deletedPost = await Post.deleteOne({ _id: postId });
 
   return res.status(200).json({
     success: true,
