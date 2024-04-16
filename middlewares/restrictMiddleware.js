@@ -31,6 +31,18 @@ const tagsTimeRestriction = asyncHandler(async (req, res, next) => {
   }
 });
 
+const postTimeRestriction = asyncHandler(async (req, res, next) => {
+  const currentTime = new Date();
+  const currentHour = currentTime.getHours();
+  if (currentHour < process.env.CREATE_POST_TIME_RESTRICTION) {
+    res.status(400);
+    throw new Error(
+      `You cannon create a post before ${process.env.CREATE_POST_TIME_RESTRICTION}`
+    );
+  }
+  next();
+});
+
 const restrictTo = (role) => {
   return (req, res, next) => {
     if (req.user.role === role) {
@@ -41,4 +53,4 @@ const restrictTo = (role) => {
   };
 };
 
-module.exports = { tagsTimeRestriction, restrictTo };
+module.exports = { tagsTimeRestriction, postTimeRestriction, restrictTo };
