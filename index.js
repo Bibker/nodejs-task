@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 const authRoute = require("./routes/authRoute");
 const postRoute = require("./routes/postRoute");
 const adminRoute = require("./routes/adminRoute");
-const editorRoute = require("./routes/adminRoute");
+const editorRoute = require("./routes/editorRoutes");
 const connectDB = require("./config/db");
 
 const app = express();
