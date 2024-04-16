@@ -1,10 +1,7 @@
 const express = require("express");
 const router = express();
 const { isAuthenticated } = require("../middlewares/authMiddleware");
-const {
-  tagsTimeRestriction,
-  restrictTo,
-} = require("../middlewares/restrictMiddleware");
+const { restrictTo } = require("../middlewares/restrictMiddleware");
 const {
   viewRoles,
   updateRoles,
