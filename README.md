@@ -1,4 +1,10 @@
-# Getting Started withSetting Up the Project
+## Note: Admin Credential
+
+```bash
+   admin@gmail.com,   pw:admin@2177
+```
+
+# Getting Started with Setting Up the Project
 
 Welcome to Post Content CRUD API! This guide will walk you through the process of setting up a Node.js project, installing packages, running a server, handling environment variables, and using MongoDB.
 
