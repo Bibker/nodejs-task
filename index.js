@@ -12,6 +12,9 @@ connectDB();
 app.use(express.json());
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
+
 app.get("/", (req, res) => {
   res.send("API is RUNNING....");
 });
@@ -19,6 +22,7 @@ app.use("/auth", authRoute);
 app.use("/post", postRoute);
 app.use("/admin", adminRoute);
 app.use("/editor", editorRoute);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(notFound);
 app.use(errorHandler);
